@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Welcome to sphinxdoc-test’s documentation! &mdash; sphinxdoc-test 0.1 documentation</title>
+    <title>HTSeq_Hadoop‘s documentation &mdash; HTSeq_Hadoop 0.0.1 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1',
+        VERSION:     '0.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,8 +23,8 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="sphinxdoc-test 0.1 documentation" href="#" />
-    <link rel="next" title="Publishing sphinx-generated docs on github" href="includeme.html" /> 
+    <link rel="top" title="HTSeq_Hadoop 0.0.1 documentation" href="#" />
+    <link rel="next" title="HTSeq_Hadoop‘s documentation" href="" /> 
   </head>
   <body>
     <div class="related">
@@ -34,9 +34,12 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="includeme.html" title="Publishing sphinx-generated docs on github"
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="#" title="HTSeq_Hadoop‘s documentation"
              accesskey="N">next</a> |</li>
-        <li><a href="#">sphinxdoc-test 0.1 documentation</a> &raquo;</li> 
+        <li><a href="#">HTSeq_Hadoop 0.0.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -45,37 +48,356 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="welcome-to-sphinxdoc-test-s-documentation">
-<h1>Welcome to sphinxdoc-test&#8217;s documentation!<a class="headerlink" href="#welcome-to-sphinxdoc-test-s-documentation" title="Permalink to this headline">¶</a></h1>
-<p>Contents:</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="includeme.html">Publishing sphinx-generated docs on github</a></li>
-<li class="toctree-l1"><a class="reference internal" href="includeme.html#protocol">Protocol</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="includeme.html#set-up-main-repository">Set up main repository</a></li>
-<li class="toctree-l2"><a class="reference internal" href="includeme.html#set-up-sphinx-within-main-repository">Set up sphinx within main repository</a></li>
-<li class="toctree-l2"><a class="reference internal" href="includeme.html#set-up-separate-docs-repository">Set up separate docs repository</a></li>
-<li class="toctree-l2"><a class="reference internal" href="includeme.html#makefile-changes">Makefile changes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="includeme.html#index-rst-changes">index.rst changes</a></li>
+  <div class="section" id="module-HTSeq_Hadoop">
+<span id="htseq-hadoop-s-documentation"></span><h1><a class="reference internal" href="#module-HTSeq_Hadoop" title="HTSeq_Hadoop"><tt class="xref py py-mod docutils literal"><span class="pre">HTSeq_Hadoop</span></tt></a>&#8216;s documentation<a class="headerlink" href="#module-HTSeq_Hadoop" title="Permalink to this headline">¶</a></h1>
+<p>This module is aiming to extend two utilities <tt class="docutils literal"><span class="pre">htseq-count</span></tt> and <tt class="docutils literal"><span class="pre">htseq-qa</span></tt> from the <a class="reference external" href="http://www-huber.embl.de/users/anders/HTSeq/doc/index.html">HTSeq</a> package to the Hadoop Map-Reduce platform, thus making possible to apply these utilities to the Next Generation Sequencing (NGS) data in a massively parallel manner.</p>
+<p>In order to function the <tt class="docutils literal"><span class="pre">HTseq</span></tt> package must be installed and available in the Python path.
+See the <a class="reference external" href="http://www-huber.embl.de/users/anders/HTSeq/doc/install.html">installation</a> section in the HTSeq package documentation.</p>
+<div class="section" id="htseqcount">
+<h2><cite>HTSeqCount</cite><a class="headerlink" href="#htseqcount" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="docutils literal"><span class="pre">HTSeqCount</span></tt>  pipeline  is a Hadoop Map-Reduce implementation  for the <tt class="docutils literal"><span class="pre">htseq-count</span></tt> Python utility, apart of the <tt class="docutils literal"><span class="pre">HTSeq</span></tt> package, aimed to count the number of short reads from <tt class="docutils literal"><span class="pre">SAM</span></tt>
+file,  mapped to each feature in the <tt class="docutils literal"><span class="pre">GFF</span></tt> or <tt class="docutils literal"><span class="pre">GTF</span></tt> file.
+For the funcionality description of the <tt class="docutils literal"><span class="pre">htseq-count</span></tt> please refer to the <a class="reference external" href="http://www-huber.embl.de/users/anders/HTSeq/doc/count.html">documentation</a>.</p>
+<p><strong>Use on Hadoop cluster:</strong></p>
+<ul class="simple">
+<li>the mapper <tt class="docutils literal"><span class="pre">HTSeqCount_mapper.py</span></tt> and the reducer <tt class="docutils literal"><span class="pre">HTSeqCount_reducer.py</span></tt> are being supplied to the Hadoop via the <tt class="docutils literal"><span class="pre">-file</span></tt> option</li>
+<li>the JAR-archived General Feature File (GFF) is located on the HDFS and is being distributed to all Hadoop cluster  nodes using the Hadoop distribured cache, the <tt class="docutils literal"><span class="pre">-archives</span></tt> option</li>
+<li>Counts from all the Hadoop nodes are summed up during  the Reduce stage to produce the final counts</li>
+<li>a use example is in the <a class="reference internal" href="#running-the-htseqcount-on-hadoop">Running the HTSeqCount on Hadoop</a> section</li>
 </ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="includeme.html#initial-creation-and-commit-workflow">Initial creation and commit workflow</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="includeme.html#add-a-nojekyll-file">Add a .nojekyll file</a></li>
+<p><strong>Use on Linux multicore workstation (cluster node)</strong> with <a class="reference external" href="http://www.gnu.org/software/parallel/">GNU
+parallel</a>:</p>
+<ul class="simple">
+<li>input file in <tt class="docutils literal"><span class="pre">SAM</span></tt> format  is being  filtered if needed and piped from the <strong>local</strong> filesystem to the <tt class="docutils literal"><span class="pre">STDIN</span></tt> of the <tt class="docutils literal"><span class="pre">HTSeqCount_mapper.py</span></tt>, the <strong>local folder</strong> with <tt class="docutils literal"><span class="pre">GFF</span></tt> file is specified following the manual</li>
+<li>the mapper produces feature counts for each thread, and   piped to the <tt class="docutils literal"><span class="pre">STDIN</span></tt> of the <tt class="docutils literal"><span class="pre">HTSeqCount_reducer.py</span></tt>, which gathers the local counts to the global one.</li>
+<li>a use example is in the  <a class="reference internal" href="#running-the-htseqcount-locally">Running the  HTSeqCount locally</a> section</li>
 </ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="includeme.html#directory-structure">Directory structure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="includeme.html#setting-up-cloned-repos-on-another-machine">Setting up cloned repos on another machine</a></li>
-<li class="toctree-l1"><a class="reference internal" href="includeme.html#general-workflow">General workflow</a></li>
+<p>At the present moment the <cite>HTSeqCount</cite> is <tt class="docutils literal"><span class="pre">GFF</span></tt> format oriented. More
+information abput <tt class="docutils literal"><span class="pre">GFF</span></tt> vs. <tt class="docutils literal"><span class="pre">GTF</span></tt> is here:
+<a class="reference external" href="http://www-huber.embl.de/users/anders/HTSeq/doc/count.html#frequenctly-asked-questions">htseq-count FAQ</a>.</p>
+<div class="section" id="module-HTSeq_Hadoop.HTSeqCount_mapper">
+<span id="htseqcount-mapper"></span><h3><cite>HTSeqCount_mapper</cite><a class="headerlink" href="#module-HTSeq_Hadoop.HTSeqCount_mapper" title="Permalink to this headline">¶</a></h3>
+<p>This script is a part of the <tt class="docutils literal"><span class="pre">HTSeqCount</span></tt> pipeline.
+The scripts is a wrapper, which reads the <tt class="docutils literal"><span class="pre">STDIN</span></tt> for a <tt class="docutils literal"><span class="pre">SAM</span></tt> file. The options are trasferred to the <tt class="docutils literal"><span class="pre">htseq-count</span></tt> script.</p>
+<p>Should be used in pair with the <a class="reference internal" href="#module-HTSeq_Hadoop.HTSeqCount_reducer" title="HTSeq_Hadoop.HTSeqCount_reducer"><tt class="xref py py-mod docutils literal"><span class="pre">HTSeq_Hadoop.HTSeqCount_reducer</span></tt></a>.</p>
+<div class="section" id="input-parameters">
+<h4>Input parameters<a class="headerlink" href="#input-parameters" title="Permalink to this headline">¶</a></h4>
+<dl class="cmdoption">
+<dt id="cmdoption-HTSeqCount_mapper-m">
+<span id="cmdoption-HTSeqCount_mapper--mode"></span><tt class="descname">-m</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--mode</tt><tt class="descclassname"> (union,intersection-strict,intersection-nonempty)</tt><a class="headerlink" href="#cmdoption-HTSeqCount_mapper-m" title="Permalink to this definition">¶</a></dt>
+<dd><p>mode to handle reads overlapping  more than one  feature. Default is <cite>union</cite></p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-HTSeqCount_mapper-t">
+<span id="cmdoption-HTSeqCount_mapper--type"></span><tt class="descname">-t</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--type</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-HTSeqCount_mapper-t" title="Permalink to this definition">¶</a></dt>
+<dd><p>feature type (3rd column in GFF file) to be used, all  features of other type are ignored (default, suitable for  GFF files: exon)
+default=&#8217;exon&#8217;</p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-HTSeqCount_mapper-i">
+<span id="cmdoption-HTSeqCount_mapper--iaddr"></span><tt class="descname">-i</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--iaddr</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-HTSeqCount_mapper-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>GFF attribute to be used as feature ID (default, suitable for Ensembl GTF files: gene_id),default=&#8217;gene_id&#8217;</p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-HTSeqCount_mapper-q">
+<span id="cmdoption-HTSeqCount_mapper--quite"></span><tt class="descname">-q</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--quite</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-HTSeqCount_mapper-q" title="Permalink to this definition">¶</a></dt>
+<dd><p>Suppress progress report and warnings</p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-HTSeqCount_mapper-gff">
+<tt class="descname">-gff</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-HTSeqCount_mapper-gff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Folder with the GFF file.</p>
+</dd></dl>
+
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Folder, <strong>not</strong> a file due to Hadoop distributed cache functionality. Applied
+for both &#8211; local and  Hadoop modes.</p>
+</div>
+</div>
+</div>
+<div class="section" id="module-HTSeq_Hadoop.HTSeqCount_reducer">
+<span id="htseqcount-reducer"></span><h3><cite>HTSeqCount_reducer</cite><a class="headerlink" href="#module-HTSeq_Hadoop.HTSeqCount_reducer" title="Permalink to this headline">¶</a></h3>
+<p>Reducer merges  the feature  count lists collected from the mappers.
+The input is read from <tt class="docutils literal"><span class="pre">STDIN</span></tt>, the output is written to <tt class="docutils literal"><span class="pre">STDOUT</span></tt></p>
+<p>Should be used in pair with the <a class="reference internal" href="#module-HTSeq_Hadoop.HTSeqCount_mapper" title="HTSeq_Hadoop.HTSeqCount_mapper"><tt class="xref py py-mod docutils literal"><span class="pre">HTSeq_Hadoop.HTSeqCount_mapper</span></tt></a>.</p>
+</div>
+<div class="section" id="running-the-htseqcount-on-hadoop">
+<h3>Running the <tt class="docutils literal"><span class="pre">HTSeqCount</span></tt> on Hadoop<a class="headerlink" href="#running-the-htseqcount-on-hadoop" title="Permalink to this headline">¶</a></h3>
+<p>The input <tt class="docutils literal"><span class="pre">*.sam.bz2</span></tt>,  <tt class="docutils literal"><span class="pre">*.GFF.JAR</span></tt>, and output folder   are on the HDFS.</p>
+<p>The mapper and reducer are on one local machine, which is a part of the Hadoop cluster.</p>
+<div class="highlight-python"><div class="highlight"><pre>$HADOOP_HOME/bin/hadoop  jar /path/To/hadoop-streaming.jar \
+  -Dmapred.reduce.tasks=1
+  -Dmapred.reduce.slowstart.completed.maps=1.0
+  -mapper /local/path/HTSeqCount_mapper.py -gff ./GFF --type=gene --idattr=ID
+  -reducer /local/path/HTSeqCount_reducer.py
+  -archives /hdfs/path/toGFF.JARfolder#GFF
+  -input /hdfs/folder/input
+  -output /hdfs/folder/output
+  -file /local/path/HTSeqCount_mapper.py
+  -file /local/path/HTSeqCount_reducer.py
+</pre></div>
+</div>
+</div>
+<div class="section" id="running-the-htseqcount-locally">
+<h3>Running the   <tt class="docutils literal"><span class="pre">HTSeqCount</span></tt> locally<a class="headerlink" href="#running-the-htseqcount-locally" title="Permalink to this headline">¶</a></h3>
+<p>A <tt class="docutils literal"><span class="pre">SAM.bz2</span></tt> file is being uncompressed  in parallel with <tt class="docutils literal"><span class="pre">pbzip2</span></tt>, and fed to the <tt class="docutils literal"><span class="pre">STDIN</span></tt> of the <a class="reference external" href="http://www.gnu.org/software/parallel/">GNU Parallel</a>, entries with <cite>&#8220;mitochondria&#8221;</cite> and
+<cite>&#8220;choloplast&#8221;</cite> are being filtered out. The remained entries are being split in
+chunks of <cite>100M</cite> and fed to multiple copies of the <a class="reference internal" href="#module-HTSeq_Hadoop.HTSeqCount_mapper" title="HTSeq_Hadoop.HTSeqCount_mapper"><tt class="xref py py-mod docutils literal"><span class="pre">HTSeq_Hadoop.HTSeqCount_mapper</span></tt></a> script, which counts
+the number of times the corresponding genes  were ovarlapped by the alingments
+in each chunk, according to the given policy. The counts from all the copies are sorted and merged to be fed to the <a class="reference internal" href="#module-HTSeq_Hadoop.HTSeqCount_reducer" title="HTSeq_Hadoop.HTSeqCount_reducer"><tt class="xref py py-mod docutils literal"><span class="pre">HTSeq_Hadoop.HTSeqCount_reducer</span></tt></a>
+script to produce the global count file. The intermediate files are being deleted.</p>
+<div class="highlight-python"><div class="highlight"><pre>f=file.sam.bz2; pbzip2 -dc $f |parallel -k   --pipe grep -E -v -i &#39;mitochondria\|chloroplast&#39; | \
+  parallel  --no-notice --pipe  --files --block 100M ./HTSeqCount_mapper.py -gff FOLDER_with_GFF_file  -t gene -i ID | \
+  parallel -Xj1 --no-notice sort -m {} &#39;;&#39; rm {}|
+  ./HTSeqCount_reducer.py &gt;./$f.counts
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="htseqqa">
+<h2><cite>HTSeqQA</cite><a class="headerlink" href="#htseqqa" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="docutils literal"><span class="pre">HTSeqQA</span></tt> pipeline  is a Hadoop Map-Reduce implementation  for the <tt class="docutils literal"><span class="pre">htseq-qa</span></tt> Python utility, the part of the <tt class="docutils literal"><span class="pre">HTSeq</span></tt> package.
+The purpose of this pipeline is to significantly reduce the quality assessment
+timing for large datasets in <tt class="docutils literal"><span class="pre">SAM</span></tt> or <tt class="docutils literal"><span class="pre">FASTQ</span></tt> formats, due to massively
+parallel execution of the code on Hadoop cluster, or on the multicore
+workstation as an alternative.</p>
+<p>For the funcionality description of the <tt class="docutils literal"><span class="pre">htseq-qa</span></tt> please refer to the <a class="reference external" href="http://www-huber.embl.de/users/anders/HTSeq/doc/qa.html">documentation</a>.</p>
+<p><strong>Use on Hadoop cluster</strong></p>
+<ul class="simple">
+<li>the mapper <tt class="docutils literal"><span class="pre">HTSeqQA_mapper.py</span></tt> and the reducer <tt class="docutils literal"><span class="pre">HTSeqQA_reducer.py</span></tt> are being supplied to the Hadoop via the <tt class="docutils literal"><span class="pre">-file</span></tt> option</li>
+<li>the dataset of interest in <tt class="docutils literal"><span class="pre">sam.bz2</span></tt> format is located on the HDFS</li>
+<li>each copy of the  mapper operates on one chunk of data and produces its contibution to the global result</li>
+<li>a single copy of the reducer collects the output from each mapper in order to produce a quality assessment picture for  the whole dataset in <tt class="docutils literal"><span class="pre">SVG</span></tt> format</li>
+<li>a use example is in the <a class="reference internal" href="#running-the-htseqqa-on-hadoop">Running the HTSeqQA on Hadoop</a> section</li>
 </ul>
+<p><strong>Use on Linux multicore workstation (cluster node)</strong> with <a class="reference external" href="http://www.gnu.org/software/parallel/">GNU
+parallel</a>:</p>
+<ul class="simple">
+<li>input file in <tt class="docutils literal"><span class="pre">SAM</span></tt> format is being split into chunks by <tt class="docutils literal"><span class="pre">GNU</span> <span class="pre">parallel</span></tt></li>
+<li>each chunk is piped to the <tt class="docutils literal"><span class="pre">STDIN</span></tt> of a separate copy of the <tt class="docutils literal"><span class="pre">HTSeqQA_mapper.py</span></tt>, which produces and emits its contribution to the global result to the <tt class="docutils literal"><span class="pre">STDOUT</span></tt></li>
+<li>the output of each mapper is being sorted in a proper way and fed to the <tt class="docutils literal"><span class="pre">STDIN</span></tt> of the single copy of the <tt class="docutils literal"><span class="pre">HTSeqQA_reducer.py</span></tt>, which merges the local contributions to the global one and produces a <tt class="docutils literal"><span class="pre">SVG</span></tt> plot</li>
+<li>a use example is in the <a class="reference internal" href="#running-the-htseqqa-locally">Running the HTSeqQA locally</a> section</li>
+</ul>
+<div class="section" id="module-HTSeq_Hadoop.HTSeqQA_mapper">
+<span id="htseqqa-mapper"></span><h3><cite>HTSeqQA_mapper</cite><a class="headerlink" href="#module-HTSeq_Hadoop.HTSeqQA_mapper" title="Permalink to this headline">¶</a></h3>
+<p>This script is a part of the HTSeq-Hadoop package for
+a  high-throughput sequencing reads or <tt class="docutils literal"><span class="pre">SAM</span></tt> files  analysis. The script takes
+a file with high-throughput sequencing reads  from <tt class="docutils literal"><span class="pre">STDIN</span></tt>, and emerges to <tt class="docutils literal"><span class="pre">STDOUT</span></tt>
+the bases and  base-call quality scores by position  within the reads.
+Should be used with <a class="reference internal" href="#module-HTSeq_Hadoop.HTSeqQA_reducer" title="HTSeq_Hadoop.HTSeqQA_reducer"><tt class="xref py py-mod docutils literal"><span class="pre">HTSeq_Hadoop.HTSeqQA_reducer</span></tt></a> script.
+The input data at the moment is <tt class="docutils literal"><span class="pre">SAM</span></tt>.</p>
+<dl class="function">
+<dt id="HTSeq_Hadoop.HTSeqQA_mapper.get_reads_length">
+<tt class="descclassname">HTSeq_Hadoop.HTSeqQA_mapper.</tt><tt class="descname">get_reads_length</tt><big>(</big><em>reads</em>, <em>n_lines</em><big>)</big><a class="reference internal" href="_modules/HTSeq_Hadoop/HTSeqQA_mapper.html#get_reads_length"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#HTSeq_Hadoop.HTSeqQA_mapper.get_reads_length" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate the read length from the data 
+based on the first 100 lines of the input file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>reads</strong> &#8211; file chunk to determine the read lenght.</li>
+<li><strong>n_lines</strong> &#8211; the number of lines to analyze in the chunk</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return readlen:</th><td class="field-body"><p class="first">&#8211; the number of lines.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><cite>int</cite></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<div class="section" id="id4">
+<h4>Input parameters<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<dl class="cmdoption">
+<dt id="cmdoption-HTSeqQA_mapper-t">
+<span id="cmdoption-HTSeqQA_mapper--type"></span><tt class="descname">-t</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--type</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-HTSeqQA_mapper-t" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type of file to  work on: <cite>SAM</cite> (default) or <cite>FASTQ</cite>.</p>
+<p>For the real use, the <strong>splittable archived</strong> input file is on the HDFS.
+Formats like <tt class="docutils literal"><span class="pre">bzip2</span></tt> or splittable <tt class="docutils literal"><span class="pre">LZO</span></tt> are either natively supported by
+Hadoop or this functionality can be easily edded.</p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-HTSeqQA_mapper-n">
+<span id="cmdoption-HTSeqQA_mapper--nosplit"></span><tt class="descname">-n</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--nosplit</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-HTSeqQA_mapper-n" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do not split reads in unaligned and aligned ones. <em>Have not tested yet...</em></p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-HTSeqQA_mapper-m">
+<span id="cmdoption-HTSeqQA_mapper--maxqual"></span><tt class="descname">-m</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--maxqual</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-HTSeqQA_mapper-m" title="Permalink to this definition">¶</a></dt>
+<dd><p>The maximum quality score that appears in the data (default: 70).</p>
+<p>For raw reads the upper quality border is 40-41, while for the SAM format the
+quality score can be higher. Relative information on <a class="reference external" href="http://en.wikipedia.org/wiki/FASTQ_format#Encoding">Wikipedia</a>.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="output">
+<h4>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h4>
+<p>The mapper emerges the <strong>&lt;key,value&gt;</strong> pairs, where <strong>key</strong>  is a string,
+corresponding to the line is the corresponding matrix, and the <strong>value</strong> is the actual
+line of matrix.</p>
+<p>Details about the
+matrixes can be found in the HTSeq <a class="reference external" href="http://www-huber.embl.de/users/anders/HTSeq/doc/sequences.html?highlight=add_bases_to_count_array">documentation</a>.</p>
+<div class="highlight-python"><div class="highlight"><pre>base_arr_U_0 211 158 120 253 0
+qual_arr_U_0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 9 0 0 0 0 0 0 8 0 6 12 5 8 0 50 227 0 73 343 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+base_arr_U_1 249 125 121 247 0
+qual_arr_U_1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 5 0 0 0 0 0 5 0 0 0 0 0 1 5 0 2 23 13 11 0 37 187 0 30 423 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+base_arr_U_2 227 140 138 237 0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="module-HTSeq_Hadoop.HTSeqQA_reducer">
+<span id="htseqqa-reducer"></span><h3><cite>HTSeqQA_reducer</cite><a class="headerlink" href="#module-HTSeq_Hadoop.HTSeqQA_reducer" title="Permalink to this headline">¶</a></h3>
+<p>This script is a part of the HTSeq-Hadoo package for analyzing   high-throughput sequencing reads or <tt class="docutils literal"><span class="pre">SAM</span></tt> files. The script  reads the data from <tt class="docutils literal"><span class="pre">STDIN</span></tt> and producing plots showing the distribution of called bases and  base-call quality scores by position  within the reads. The plots are sent to <tt class="docutils literal"><span class="pre">STDOUT</span></tt> in the <tt class="docutils literal"><span class="pre">SVG</span></tt> format. Should be used with <a class="reference internal" href="#module-HTSeq_Hadoop.HTSeqQA_mapper" title="HTSeq_Hadoop.HTSeqQA_mapper"><tt class="xref py py-mod docutils literal"><span class="pre">HTSeq_Hadoop.HTSeqQA_mapper</span></tt></a> script.</p>
+<dl class="function">
+<dt id="HTSeq_Hadoop.HTSeqQA_reducer.norm_by_pos">
+<tt class="descclassname">HTSeq_Hadoop.HTSeqQA_reducer.</tt><tt class="descname">norm_by_pos</tt><big>(</big><em>arr</em><big>)</big><a class="reference internal" href="_modules/HTSeq_Hadoop/HTSeqQA_reducer.html#norm_by_pos"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#HTSeq_Hadoop.HTSeqQA_reducer.norm_by_pos" title="Permalink to this definition">¶</a></dt>
+<dd><p>normalizes array by dividing each element in the row by the sum of the row</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>arr</strong> (<cite>numpy.int</cite>) &#8211; 2D array</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return arr:</th><td class="field-body">normalized array</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><cite>numpy.float</cite></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="HTSeq_Hadoop.HTSeqQA_reducer.norm_by_start">
+<tt class="descclassname">HTSeq_Hadoop.HTSeqQA_reducer.</tt><tt class="descname">norm_by_start</tt><big>(</big><em>arr</em><big>)</big><a class="reference internal" href="_modules/HTSeq_Hadoop/HTSeqQA_reducer.html#norm_by_start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#HTSeq_Hadoop.HTSeqQA_reducer.norm_by_start" title="Permalink to this definition">¶</a></dt>
+<dd><p>normalizes array by the first element of the array, resulted after summing up elements in the rows</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>arr</strong> (<cite>numpy.int</cite>) &#8211; 2D array</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return arr:</th><td class="field-body">arr &#8211;  normalized array</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><cite>numpy.float</cite></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="HTSeq_Hadoop.HTSeqQA_reducer.plot_bases">
+<tt class="descclassname">HTSeq_Hadoop.HTSeqQA_reducer.</tt><tt class="descname">plot_bases</tt><big>(</big><em>arr</em><big>)</big><a class="reference internal" href="_modules/HTSeq_Hadoop/HTSeqQA_reducer.html#plot_bases"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#HTSeq_Hadoop.HTSeqQA_reducer.plot_bases" title="Permalink to this definition">¶</a></dt>
+<dd><p>prepares the Matplotlib canvas</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="HTSeq_Hadoop.HTSeqQA_reducer.read_mapper_output">
+<tt class="descclassname">HTSeq_Hadoop.HTSeqQA_reducer.</tt><tt class="descname">read_mapper_output</tt><big>(</big><em>file</em>, <em>separator='\t'</em><big>)</big><a class="reference internal" href="_modules/HTSeq_Hadoop/HTSeqQA_reducer.html#read_mapper_output"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#HTSeq_Hadoop.HTSeqQA_reducer.read_mapper_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>reads the STDIN lazily and ouputs the <strong>&lt;key,value&gt;</strong> separates by TAB</p>
+</dd></dl>
+
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <tt class="docutils literal"><span class="pre">Matlotlib</span> <span class="pre">1.1.1rc</span></tt> does not work with the <tt class="docutils literal"><span class="pre">PDF</span></tt> in the Hadoop framework, while working OK on the local Linux box. Therefore the <tt class="docutils literal"><span class="pre">SVG</span></tt> format was picked up.</p>
+</div>
+<div class="section" id="id6">
+<h4>Output<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<p>For the <tt class="docutils literal"><span class="pre">SAM</span></tt> input file, the reducer produces a picture in the <tt class="docutils literal"><span class="pre">SVG</span></tt> format with the contents similar to:</p>
+<a class="reference internal image-reference" href="_images/qaIII.jpg"><img alt="_images/qaIII.jpg" src="_images/qaIII.jpg" style="width: 600px;" /></a>
+</div>
+</div>
+<div class="section" id="running-the-htseqqa-on-hadoop">
+<h3>Running the <tt class="docutils literal"><span class="pre">HTSeqQA</span></tt> on Hadoop<a class="headerlink" href="#running-the-htseqqa-on-hadoop" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>$HADOOP_HOME/bin/hadoop  jar /path/To/hadoop-streaming.jar \
+  -Dmapred.reduce.tasks=1
+  -Dmapred.reduce.slowstart.completed.maps=1.0
+  -mapper /local/path/HTSeqQA_mapper.py -m 80
+  -reducer /local/path/HTSeqQA_reducer.py
+  -input /hdfs/folder/input
+  -output /hdfs/folder/output
+  -file /local/path/HTSeqQA_mapper.py
+  -file /local/path/HTSeqQA_reducer.py
+</pre></div>
+</div>
+</div>
+<div class="section" id="running-the-htseqqa-locally">
+<h3>Running the <tt class="docutils literal"><span class="pre">HTSeqQA</span></tt> locally<a class="headerlink" href="#running-the-htseqqa-locally" title="Permalink to this headline">¶</a></h3>
+<p>The Hadoop pipeline can be tested locally on a Linux box as a single-threaded
+application:</p>
+<div class="highlight-python"><div class="highlight"><pre>bzcat  file.sam.bz2 | ./HTSeqQA_mapper.py -m 70  | sort - k1,1 | ./HTSeqQA_reducer.py  &gt;tmp.svg
+</pre></div>
+</div>
+<p>which will produce the <strong>tmp.svg</strong> file with the results.</p>
+<p>Another option is to use <a class="reference external" href="http://www.gnu.org/software/parallel/">GNU Parallel</a> and run the Mapper and Reducer on the multicore node:</p>
+<div class="highlight-python"><div class="highlight"><pre>pbzip2 -dc $file.sam.bz2  | \
+  parallel  --no-notice --pipe  --block 100M \
+  ./HTSeqQA_mapper.py -m 80 2&gt;/dev/null | \
+  parallel --pipe --files sort -t&quot;_&quot; -k1,3 -k4,4n | \
+  parallel -Xj1 --no-notice sort -m -t&quot;_&quot; -k1,3 -k4,4n {} &#39;;&#39; rm {} | \
+  ./HTSeqQA_reducer.py &gt;pic.svg
+</pre></div>
+</div>
+<p>Brief description: <tt class="docutils literal"><span class="pre">pbzip2</span></tt> is a parallel version of <tt class="docutils literal"><span class="pre">bzip2</span></tt>  archiver. The
+pipeline unarchives the <tt class="docutils literal"><span class="pre">file.sam.bz2</span></tt>, cuts it into <cite>100M</cite> chunks and feeds
+these chunks to the <tt class="docutils literal"><span class="pre">HTSeqQA_mapper.py</span></tt>. The output of each mapper is being
+sorted according to the syntaxis of the mapper,  and merged afterwards, the temporary files are deleted. The prepared
+data comes to the STDIN of the <tt class="docutils literal"><span class="pre">HTSeqQA_reducer.py</span></tt>  to produce <tt class="docutils literal"><span class="pre">pic.svg</span></tt>.</p>
 </div>
 </div>
 <div class="section" id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><a class="reference internal" href="genindex.html"><em>Index</em></a></li>
 <li><a class="reference internal" href="py-modindex.html"><em>Module Index</em></a></li>
 <li><a class="reference internal" href="search.html"><em>Search Page</em></a></li>
 </ul>
+</div>
+<div class="section" id="contents">
+<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href=""><tt class="docutils literal"><span class="pre">HTSeq_Hadoop</span></tt>&#8216;s documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#htseqcount"><cite>HTSeqCount</cite></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-HTSeq_Hadoop.HTSeqCount_mapper"><cite>HTSeqCount_mapper</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-HTSeq_Hadoop.HTSeqCount_reducer"><cite>HTSeqCount_reducer</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-the-htseqcount-on-hadoop">Running the <tt class="docutils literal"><span class="pre">HTSeqCount</span></tt> on Hadoop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-the-htseqcount-locally">Running the   <tt class="docutils literal"><span class="pre">HTSeqCount</span></tt> locally</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#htseqqa"><cite>HTSeqQA</cite></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-HTSeq_Hadoop.HTSeqQA_mapper"><cite>HTSeqQA_mapper</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-HTSeq_Hadoop.HTSeqQA_reducer"><cite>HTSeqQA_reducer</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-the-htseqqa-on-hadoop">Running the <tt class="docutils literal"><span class="pre">HTSeqQA</span></tt> on Hadoop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-the-htseqqa-locally">Running the <tt class="docutils literal"><span class="pre">HTSeqQA</span></tt> locally</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contents">Contents</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#author">Author</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="author">
+<h2>Author<a class="headerlink" href="#author" title="Permalink to this headline">¶</a></h2>
+<p>Please contact <a class="reference external" href="http://katalog.uu.se/empinfo/?languageId=1&amp;id=N6-1176">Alexey Siretskiy</a> if needed.</p>
+</div>
 </div>
 
 
@@ -86,13 +408,41 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="#">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Welcome to sphinxdoc-test&#8217;s documentation!</a></li>
+<li><a class="reference internal" href="#"><tt class="docutils literal"><span class="pre">HTSeq_Hadoop</span></tt>&#8216;s documentation</a><ul>
+<li><a class="reference internal" href="#htseqcount"><cite>HTSeqCount</cite></a><ul>
+<li><a class="reference internal" href="#module-HTSeq_Hadoop.HTSeqCount_mapper"><cite>HTSeqCount_mapper</cite></a><ul>
+<li><a class="reference internal" href="#input-parameters">Input parameters</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-HTSeq_Hadoop.HTSeqCount_reducer"><cite>HTSeqCount_reducer</cite></a></li>
+<li><a class="reference internal" href="#running-the-htseqcount-on-hadoop">Running the <tt class="docutils literal"><span class="pre">HTSeqCount</span></tt> on Hadoop</a></li>
+<li><a class="reference internal" href="#running-the-htseqcount-locally">Running the   <tt class="docutils literal"><span class="pre">HTSeqCount</span></tt> locally</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#htseqqa"><cite>HTSeqQA</cite></a><ul>
+<li><a class="reference internal" href="#module-HTSeq_Hadoop.HTSeqQA_mapper"><cite>HTSeqQA_mapper</cite></a><ul>
+<li><a class="reference internal" href="#id4">Input parameters</a></li>
+<li><a class="reference internal" href="#output">Output</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-HTSeq_Hadoop.HTSeqQA_reducer"><cite>HTSeqQA_reducer</cite></a><ul>
+<li><a class="reference internal" href="#id6">Output</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#running-the-htseqqa-on-hadoop">Running the <tt class="docutils literal"><span class="pre">HTSeqQA</span></tt> on Hadoop</a></li>
+<li><a class="reference internal" href="#running-the-htseqqa-locally">Running the <tt class="docutils literal"><span class="pre">HTSeqQA</span></tt> locally</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+<li><a class="reference internal" href="#contents">Contents</a></li>
+<li><a class="reference internal" href="#author">Author</a></li>
+</ul>
+</li>
 </ul>
 
   <h4>Next topic</h4>
-  <p class="topless"><a href="includeme.html"
-                        title="next chapter">Publishing sphinx-generated docs on github</a></p>
+  <p class="topless"><a href=""
+                        title="next chapter"><tt class="docutils literal"><span class="pre">HTSeq_Hadoop</span></tt>&#8216;s documentation</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/index.txt"
@@ -122,13 +472,16 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="includeme.html" title="Publishing sphinx-generated docs on github"
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="#" title="HTSeq_Hadoop‘s documentation"
              >next</a> |</li>
-        <li><a href="#">sphinxdoc-test 0.1 documentation</a> &raquo;</li> 
+        <li><a href="#">HTSeq_Hadoop 0.0.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2011, Ryan Dale.
+        &copy; Copyright 2014, Alexey Siretskiy.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
