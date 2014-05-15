@@ -1,18 +1,19 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Publishing sphinx-generated docs on github &mdash; sphinxdoc-test v0.1 documentation</title>
+    <title>Publishing sphinx-generated docs on github &mdash; sphinxdoc-test 0.1 documentation</title>
+    
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -22,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="sphinxdoc-test v0.1 documentation" href="index.html" />
+    <link rel="top" title="sphinxdoc-test 0.1 documentation" href="index.html" />
     <link rel="prev" title="Welcome to sphinxdoc-test’s documentation!" href="index.html" /> 
   </head>
   <body>
@@ -35,7 +36,7 @@
         <li class="right" >
           <a href="index.html" title="Welcome to sphinxdoc-test’s documentation!"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">sphinxdoc-test v0.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">sphinxdoc-test 0.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -44,7 +45,8 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="publishing-sphinx-generated-docs-on-github">
+  <p><a class="reference external" href="manual.pdf">manual.pdf</a></p>
+<div class="section" id="publishing-sphinx-generated-docs-on-github">
 <h1>Publishing sphinx-generated docs on github<a class="headerlink" href="#publishing-sphinx-generated-docs-on-github" title="Permalink to this headline">¶</a></h1>
 <p>github allows the publishing of static pages associated with a particular
 repository (called project pages), which you can read more about at
@@ -68,14 +70,15 @@ this README, created using the commands documented in it...</p>
 <h2>Set up main repository<a class="headerlink" href="#set-up-main-repository" title="Permalink to this headline">¶</a></h2>
 <p>First set up your main repo.  These are the commands I used to set up this
 very repo (how meta!):</p>
-<div class="highlight-python"><pre>mkdir sphinxdoc-test
+<div class="highlight-python"><div class="highlight"><pre>mkdir sphinxdoc-test
 cd sphinxdoc-test
 git init
 touch README
 git add README
-git commit -m 'first commit'
+git commit -m &#39;first commit&#39;
 git remote add origin git@github.com:daler/sphinxdoc-test.git
-git push origin master</pre>
+git push origin master
+</pre></div>
 </div>
 <p>Throughout this document, I&#8217;ll refer to this as the &#8216;main repo&#8217; or the
 &#8216;code dir&#8217;.</p>
@@ -83,12 +86,14 @@ git push origin master</pre>
 <div class="section" id="set-up-sphinx-within-main-repository">
 <h2>Set up sphinx within main repository<a class="headerlink" href="#set-up-sphinx-within-main-repository" title="Permalink to this headline">¶</a></h2>
 <p>Make a dir, <tt class="docutils literal"><span class="pre">docs</span></tt>, that will store documentation source from Sphinx:</p>
-<div class="highlight-python"><pre>mkdir sphinxdoc-test/docs</pre>
+<div class="highlight-python"><div class="highlight"><pre>mkdir sphinxdoc-test/docs
+</pre></div>
 </div>
 <p>Then set up Sphinx from the <tt class="docutils literal"><span class="pre">docs</span></tt> dir, accepting all the defaults as you see
 fit:</p>
-<div class="highlight-python"><pre>cd docs
-sphinx-quickstart</pre>
+<div class="highlight-python"><div class="highlight"><pre>cd docs
+sphinx-quickstart
+</pre></div>
 </div>
 </div>
 <div class="section" id="set-up-separate-docs-repository">
@@ -96,29 +101,34 @@ sphinx-quickstart</pre>
 <p>Now we need to set up a completely new directory that will serve as the
 build directory for Sphinx.  Here I&#8217;m calling it <tt class="docutils literal"><span class="pre">sphinxdoc-test-docs</span></tt>.
 Note that it&#8217;s outside of the main repo dir:</p>
-<div class="highlight-python"><pre>cd ..
+<div class="highlight-python"><div class="highlight"><pre>cd ..
 mkdir sphinxdoc-test-docs
-cd sphinxdoc-test-docs</pre>
+cd sphinxdoc-test-docs
+</pre></div>
 </div>
 <p>Then clone the repo you just set up on github into a dir called <tt class="docutils literal"><span class="pre">html</span></tt>
 (which will be created automatically with the following command):</p>
-<div class="highlight-python"><pre>git clone git@github.com:daler/sphinxdoc-test.git html
-cd html</pre>
+<div class="highlight-python"><div class="highlight"><pre>git clone git@github.com:daler/sphinxdoc-test.git html
+cd html
+</pre></div>
 </div>
 <p>The <tt class="docutils literal"><span class="pre">html</span></tt> dir now has a clone of the repo.</p>
 <p>Next, create a new branch called <tt class="docutils literal"><span class="pre">gh-pages</span></tt>.  This is a special branch name
 that github looks for in order to build static html pages:</p>
-<div class="highlight-python"><pre>git branch gh-pages</pre>
+<div class="highlight-python"><div class="highlight"><pre>git branch gh-pages
+</pre></div>
 </div>
 <p>The following commands do git fancy stuff that I don&#8217;t completely understand
 yet, suffice to say that after these 3 commands you switch to the new branch
 <tt class="docutils literal"><span class="pre">gh-pages</span></tt> and the branch is cleaned out with no files in it:</p>
-<div class="highlight-python"><pre>git symbolic-ref HEAD refs/heads/gh-pages  # auto-switches branches to gh-pages
+<div class="highlight-python"><div class="highlight"><pre>git symbolic-ref HEAD refs/heads/gh-pages  # auto-switches branches to gh-pages
 rm .git/index
-git clean -fdx</pre>
+git clean -fdx
+</pre></div>
 </div>
 <p>And confirm we&#8217;re on gh-pages:</p>
-<div class="highlight-python"><pre>git branch</pre>
+<div class="highlight-python"><div class="highlight"><pre>git branch
+</pre></div>
 </div>
 <p>I&#8217;ll refer to this as the &#8216;gh-pages repo&#8217;.</p>
 </div>
@@ -129,8 +139,9 @@ sphinx-generated Makefile back in the main repo so that it builds
 documentation in our new gh-pages branch and directory, instead of
 cluttering the main code dir.</p>
 <p>So go back to the code dir&#8217;s <tt class="docutils literal"><span class="pre">doc</span></tt> dir:</p>
-<div class="highlight-python"><pre>cd ../sphinxdoc-test
-cd docs</pre>
+<div class="highlight-python"><div class="highlight"><pre>cd ../sphinxdoc-test
+cd docs
+</pre></div>
 </div>
 <p>Here are the changes we&#8217;re going to make to
 <tt class="docutils literal"><span class="pre">sphinxdoc-test/docs/Makefile</span></tt> . . . first, change:</p>
@@ -138,9 +149,10 @@ cd docs</pre>
 </pre></div>
 </div>
 <p>to:</p>
-<div class="highlight-python"><pre>BUILDDIR      = ../../sphinxdoc-test-docs
+<div class="highlight-python"><div class="highlight"><pre>BUILDDIR      = ../../sphinxdoc-test-docs
 PDFBUILDDIR   = /tmp
-PDF           = ../manual.pdf</pre>
+PDF           = ../manual.pdf
+</pre></div>
 </div>
 <p>The first new line points to the new dir and gh-pages branch we just set
 up.  So now, running <tt class="docutils literal"><span class="pre">make</span> <span class="pre">html</span></tt> in <tt class="docutils literal"><span class="pre">sphinxdoc-test/docs</span></tt> will create
@@ -148,22 +160,24 @@ an <tt class="docutils literal"><span class="pre">html</span></tt> dir in <tt cl
 exactly what we set up the gh-pages repo in.</p>
 <p>Before the next two lines make sense, need to make another change . . .
 I&#8217;ve added commented lines pointing to the changes:</p>
-<div class="highlight-python"><pre>latexpdf:
+<div class="highlight-python"><div class="highlight"><pre>latexpdf:
     $(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) $(BUILDDIR)/latex
-    @echo "Running LaTeX files through pdflatex..."
+    @echo &quot;Running LaTeX files through pdflatex...&quot;
     make -C $(BUILDDIR)/latex all-pdf
-    @echo "pdflatex finished; the PDF files are in $(BUILDDIR)/latex."</pre>
+    @echo &quot;pdflatex finished; the PDF files are in $(BUILDDIR)/latex.&quot;
+</pre></div>
 </div>
 <p>to:</p>
-<div class="highlight-python"><pre>latexpdf:
+<div class="highlight-python"><div class="highlight"><pre>latexpdf:
     $(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) $(PDFBUILDDIR)/latex
     #                                          ^^^
-    @echo "Running LaTeX files through pdflatex..."
+    @echo &quot;Running LaTeX files through pdflatex...&quot;
     make -C $(PDFBUILDDIR)/latex all-pdf
     #         ^^^
     cp $(PDFBUILDDIR)/latex/*.pdf $(PDF)
     #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    @echo "pdflatex finished; see $(PDF)"</pre>
+    @echo &quot;pdflatex finished; see $(PDF)&quot;
+</pre></div>
 </div>
 <p>All these PDF build dir changes put all the LaTeX stuff in a temporary
 directory, and then only copy the resulting PDF file to the root dir of the
@@ -184,14 +198,16 @@ in <tt class="docutils literal"><span class="pre">index.rst</span></tt>, so here
 <p>Make a new file, <tt class="docutils literal"><span class="pre">sphinxdoc-test/docs/source/includeme.rst</span></tt>.  In there, put
 an include directive pointing to the true``README.rst``.  So <tt class="docutils literal"><span class="pre">includeme.rst</span></tt>
 should look like this:</p>
-<div class="highlight-python"><pre>.. include:: ../../README.rst</pre>
+<div class="highlight-python"><div class="highlight"><pre>.. include:: ../../README.rst
+</pre></div>
 </div>
 <p>Then in <tt class="docutils literal"><span class="pre">index.rst</span></tt>, add <tt class="docutils literal"><span class="pre">includeme</span></tt> to the toctree.  So the relevant part
 of <tt class="docutils literal"><span class="pre">index.rst</span></tt> should look something like:</p>
-<div class="highlight-python"><pre>.. toctree::
+<div class="highlight-python"><div class="highlight"><pre>.. toctree::
    :maxdepth: 2
 
-   includeme</pre>
+   includeme
+</pre></div>
 </div>
 <p>OK, we should be done with the setup now.</p>
 </div>
@@ -200,34 +216,40 @@ of <tt class="docutils literal"><span class="pre">index.rst</span></tt> should l
 <h1>Initial creation and commit workflow<a class="headerlink" href="#initial-creation-and-commit-workflow" title="Permalink to this headline">¶</a></h1>
 <p>Commit all code and README.rst (and any other doc source files) in the main
 repo, like always:</p>
-<div class="highlight-python"><pre>git add docs
+<div class="highlight-python"><div class="highlight"><pre>git add docs
 git add README.rst
-git commit -m "added docs and README.rst"</pre>
+git commit -m &quot;added docs and README.rst&quot;
+</pre></div>
 </div>
 <p>Then, when you&#8217;re ready to recreate the docs:</p>
-<div class="highlight-python"><pre>cd docs
+<div class="highlight-python"><div class="highlight"><pre>cd docs
 make html
-make latexpdf</pre>
+make latexpdf
+</pre></div>
 </div>
 <p>Should probably add the newly built manual:</p>
-<div class="highlight-python"><pre>cd ..
+<div class="highlight-python"><div class="highlight"><pre>cd ..
 git add manual.pdf
-git commit -m "added manual.pdf"</pre>
+git commit -m &quot;added manual.pdf&quot;
+</pre></div>
 </div>
 <p>Next, change to the gh-pages repo dir and commit the stuff that the <tt class="docutils literal"><span class="pre">make</span>
 <span class="pre">html</span></tt> command made:</p>
-<div class="highlight-python"><pre>cd ../sphinxdoc-test-docs
+<div class="highlight-python"><div class="highlight"><pre>cd ../sphinxdoc-test-docs
 git add .
-git commit -m "rebuilt docs"</pre>
+git commit -m &quot;rebuilt docs&quot;
+</pre></div>
 </div>
 <p>And then publish the newly built docs:</p>
-<div class="highlight-python"><pre>git push origin gh-pages</pre>
+<div class="highlight-python"><div class="highlight"><pre>git push origin gh-pages
+</pre></div>
 </div>
 <p>Rinse and repeat.  Of course, you could always add a task to the Makefile
 to do this building and committing docs, something like:</p>
-<div class="highlight-python"><pre>buildandcommithtml: html latexpdf
+<div class="highlight-python"><div class="highlight"><pre>buildandcommithtml: html latexpdf
 
-    cd $(BUILDDIR)/html; git add . ; git commit -m "rebuilt docs"; git push origin gh-pages</pre>
+    cd $(BUILDDIR)/html; git add . ; git commit -m &quot;rebuilt docs&quot;; git push origin gh-pages
+</pre></div>
 </div>
 <p>Anyway, now you can view your new pages on <a class="reference external" href="http:/">http:/</a>/&lt;user&gt;.github.com/&lt;repo&gt;.
 So in this case, it&#8217;s <a class="reference external" href="http://daler.github.com/sphinxdoc-test">http://daler.github.com/sphinxdoc-test</a>.</p>
@@ -237,17 +259,18 @@ So in this case, it&#8217;s <a class="reference external" href="http://daler.git
 the docs repo.  This tells github&#8217;s default parsing software to ignore the
 sphinx-generated pages that are in the gh-pages branch.  Make sure you
 commit it, too:</p>
-<div class="highlight-python"><pre>cd sphinxdoc-test-docs/html
+<div class="highlight-python"><div class="highlight"><pre>cd sphinxdoc-test-docs/html
 touch .nojekyll
 git add .nojekyll
-git commit -m "added .nojekyll"</pre>
+git commit -m &quot;added .nojekyll&quot;
+</pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="directory-structure">
 <h1>Directory structure<a class="headerlink" href="#directory-structure" title="Permalink to this headline">¶</a></h1>
 <p>So that we&#8217;re on the same page, the final directory structure looks like this:</p>
-<div class="highlight-python"><pre>sphinxdoc-test
+<div class="highlight-python"><div class="highlight"><pre>sphinxdoc-test
 |-- pymodule              &lt;-- whatever your normal python package dir structure is
 |   |-- somepythonmodule.py
 |   `-- othercode.py
@@ -289,7 +312,8 @@ sphinxdoc-test-docs
         |-- pygments.css
         |-- searchtools.js
         |-- sidebar.js
-        `-- underscore.js</pre>
+        `-- underscore.js
+</pre></div>
 </div>
 </div>
 <div class="section" id="setting-up-cloned-repos-on-another-machine">
@@ -303,25 +327,29 @@ and <tt class="docutils literal"><span class="pre">/data/repos/sphinxdoc-test-do
 <p>First set up the main repo; in this example I&#8217;m putting it right in my home
 directory.  Cloning will automatically create a directory, so you don&#8217;t
 have to make one:</p>
-<div class="highlight-python"><pre>cd ~
-git clone git@github.com:daler/sphinxdoc-test.git</pre>
+<div class="highlight-python"><div class="highlight"><pre>cd ~
+git clone git@github.com:daler/sphinxdoc-test.git
+</pre></div>
 </div>
 <p>OK, that&#8217;s done.  Now to set up the docs repo.  For this, just like for
 setting it up in the first place, you need to create a dir first (making
 sure it&#8217;s the same name referred to in the edited Makefile) and then change
 to it and clone the <tt class="docutils literal"><span class="pre">html</span></tt> part of the repo:</p>
-<div class="highlight-python"><pre>cd ~
+<div class="highlight-python"><div class="highlight"><pre>cd ~
 mkdir sphinxdoc-test-docs
 cd sphinxdoc-test-docs
-git clone git@github.com:daler/sphinxdoc-test.git html</pre>
+git clone git@github.com:daler/sphinxdoc-test.git html
+</pre></div>
 </div>
 <p>Now there&#8217;s a slight problem &#8211; in the newly cloned <tt class="docutils literal"><span class="pre">html</span></tt> dir, there
 only appears to be one branch and it&#8217;s the master branch:</p>
-<div class="highlight-python"><pre>git branch
-# * master</pre>
+<div class="highlight-python"><div class="highlight"><pre>git branch
+# * master
+</pre></div>
 </div>
 <p>The following command will create a local tracking branch to the <tt class="docutils literal"><span class="pre">gh-pages</span></tt> branch:</p>
-<div class="highlight-python"><pre>git checkout -b gh-pages remotes/origin/gh-pages</pre>
+<div class="highlight-python"><div class="highlight"><pre>git checkout -b gh-pages remotes/origin/gh-pages
+</pre></div>
 </div>
 <p>Now the directories are set up the same way they were in the original setup
 described above.</p>
@@ -330,10 +358,10 @@ described above.</p>
 <h1>General workflow<a class="headerlink" href="#general-workflow" title="Permalink to this headline">¶</a></h1>
 <p>Now that everything is set up, general workflow is to:</p>
 <blockquote>
-<ul>
+<div><ul>
 <li><p class="first">In the main repo:</p>
 <blockquote>
-<ul class="simple">
+<div><ul class="simple">
 <li>edit and commit code as usual</li>
 <li>document stuff in README.rst, commit it as usual</li>
 <li>document stuff that will be in the documentation, but not on the
@@ -347,21 +375,22 @@ you&#8217;ll have to commit and push the new version as well.</li>
 <li><tt class="docutils literal"><span class="pre">git</span> <span class="pre">push</span></tt></li>
 <li>change to the docs repo</li>
 </ul>
-</blockquote>
+</div></blockquote>
 </li>
 <li><p class="first">Next, in the docs repo:</p>
 <blockquote>
-<ul class="simple">
+<div><ul class="simple">
 <li>change to the docs repo (make sure you&#8217;re in the html dir)</li>
 <li>check to make sure you&#8217;re on the gh-pages branch</li>
 <li><tt class="docutils literal"><span class="pre">git</span> <span class="pre">commit</span> <span class="pre">-a</span> <span class="pre">-m</span> <span class="pre">&quot;rebuilt</span> <span class="pre">docs&quot;</span></tt></li>
 <li><tt class="docutils literal"><span class="pre">git</span> <span class="pre">push</span> <span class="pre">origin</span> <span class="pre">gh-pages</span></tt></li>
 </ul>
-</blockquote>
+</div></blockquote>
 </li>
 </ul>
-</blockquote>
+</div></blockquote>
 <p>Done!</p>
+<p><a href="#id1"><span class="problematic" id="id2">`sphinxdoc-test/blob/master/manual.pdf`_</span></a></p>
 </div>
 
 
@@ -401,7 +430,7 @@ you&#8217;ll have to commit and push the new version as well.</li>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -424,12 +453,12 @@ you&#8217;ll have to commit and push the new version as well.</li>
         <li class="right" >
           <a href="index.html" title="Welcome to sphinxdoc-test’s documentation!"
              >previous</a> |</li>
-        <li><a href="index.html">sphinxdoc-test v0.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">sphinxdoc-test 0.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2011, Ryan Dale.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>
