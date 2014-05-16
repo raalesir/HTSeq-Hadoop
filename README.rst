@@ -10,6 +10,6 @@ We modified two widely used tools from ``HTSeq`` in RNA-seq analysis: ``htseq-co
 These were adapted to run in the Hadoop framework in order to significantly increase the scalability. 
   
 The runtime performance of ``HTSeqCount`` under Hadoop was compared with the Pig Latin script on the ``Apache Pig``  platform. 
-The choice of Hadoop-streaming allowed us to involve the `GNU-parallel <http://www.gnu.org/software/parallel/>`_  utility to run ``HTSeq-Hadoop`` in  multiple threads on the multicore Linux workstations or on a cluster node. 
+The choice of Hadoop-streaming library made possible  to involve the `GNU-parallel <http://www.gnu.org/software/parallel/>`_  utility to run ``HTSeq-Hadoop`` in  multiple threads on the multicore Linux workstations or on a cluster node. 
   
 The documentation for the ``HTSeq-Hadoop`` is available `here <http://raalesir.github.io/HTSeq-Hadoop>`_.
