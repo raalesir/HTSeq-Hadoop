@@ -12,7 +12,9 @@ These were adapted to run in the Hadoop framework in order to significantly incr
   
 
 At the present moment there are two utilities in the ``HTSeq-Hadoop``: 
+
 * ``HTSeqCount`` -- mimicking the functionality of the ``htseq-count``
+
 * ``HTSeqQA`` -- ``htseq-qa``
 
 
