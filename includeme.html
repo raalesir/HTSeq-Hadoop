@@ -49,17 +49,7 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <p>Here  we focus on describing <tt class="docutils literal"><span class="pre">HTSeq-Hadoop</span></tt> which extends the <a class="reference external" href="http://www-huber.embl.de/users/anders/HTSeq/doc/index.html">HTSeq</a> package with Hadoop implementations.</p>
-<p><tt class="docutils literal"><span class="pre">HTSeq</span></tt> provides an Application Programming Interface (API) to manipulate
-raw and processed Next Generation Sequencing (NGS) data using the Python programming language. A limitation
-of  <tt class="docutils literal"><span class="pre">HTSeq</span></tt> is that it is generally restricted to a single thread, though
-allowing to scale up to a whole multicore node in some cases.</p>
-<p>We modified two widely used tools from <tt class="docutils literal"><span class="pre">HTSeq</span></tt> in RNA-seq analysis: <tt class="docutils literal"><span class="pre">htseq-count</span></tt> for counting how many reads are mapped to the genes and <tt class="docutils literal"><span class="pre">htseq-qa</span></tt> for  quality assessment of raw or mapped reads.
-These were adapted to run in the Hadoop framework in order to significantly increase the scalability.</p>
-<p>The runtime performance of <tt class="docutils literal"><span class="pre">HTSeqCount</span></tt> under Hadoop was compared with the Pig Latin script on the <tt class="docutils literal"><span class="pre">Apache</span> <span class="pre">Pig</span></tt>  platform.
-The choice of Hadoop-streaming allowed us to involve the <a class="reference external" href="http://www.gnu.org/software/parallel/">GNU-parallel</a>  utility to run <tt class="docutils literal"><span class="pre">HTSeq-Hadoop</span></tt> in  multiple threads on the multicore Linux workstations or on a cluster node.</p>
-<p>The documentation for the <tt class="docutils literal"><span class="pre">HTSeq-Hadoop</span></tt> is available <a class="reference external" href="http://raalesir.github.io/sphinxdoc-test">here</a>.</p>
-<div class="section" id="htseq-hadoop-s-documentation">
+  <div class="section" id="htseq-hadoop-s-documentation">
 <h1><tt class="xref py py-mod docutils literal"><span class="pre">HTSeq_Hadoop</span></tt>&#8216;s documentation<a class="headerlink" href="#htseq-hadoop-s-documentation" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="htseqcount">
 <h2><cite>HTSeqCount</cite><a class="headerlink" href="#htseqcount" title="Permalink to this headline">¶</a></h2>
@@ -189,8 +179,8 @@ parallel</a>:</p>
 </ul>
 <div class="section" id="htseqqa-mapper">
 <h3><cite>HTSeqQA_mapper</cite><a class="headerlink" href="#htseqqa-mapper" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="id5">
-<h4>Input parameters<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id4">
+<h4>Input parameters<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
 <dl class="cmdoption">
 <dt id="cmdoption-HTSeqQA_mapper-t">
 <span id="cmdoption-HTSeqQA_mapper--type"></span><tt class="descname">-t</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--type</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-HTSeqQA_mapper-t" title="Permalink to this definition">¶</a></dt>
@@ -237,8 +227,8 @@ base_arr_U_2 227 140 138 237 0
 <p class="first admonition-title">Note</p>
 <p class="last">The <tt class="docutils literal"><span class="pre">Matlotlib</span> <span class="pre">1.1.1rc</span></tt> does not work with the <tt class="docutils literal"><span class="pre">PDF</span></tt> in the Hadoop framework, while working OK on the local Linux box. Therefore the <tt class="docutils literal"><span class="pre">SVG</span></tt> format was picked up.</p>
 </div>
-<div class="section" id="id7">
-<h4>Output<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id6">
+<h4>Output<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
 <p>For the <tt class="docutils literal"><span class="pre">SAM</span></tt> input file, the reducer produces a picture in the <tt class="docutils literal"><span class="pre">SVG</span></tt> format with the contents similar to:</p>
 <a class="reference internal image-reference" href="_images/qaIII.jpg"><img alt="_images/qaIII.jpg" src="_images/qaIII.jpg" style="width: 600px;" /></a>
 </div>
@@ -334,12 +324,12 @@ data comes to the STDIN of the <tt class="docutils literal"><span class="pre">HT
 </li>
 <li><a class="reference internal" href="#htseqqa"><cite>HTSeqQA</cite></a><ul>
 <li><a class="reference internal" href="#htseqqa-mapper"><cite>HTSeqQA_mapper</cite></a><ul>
-<li><a class="reference internal" href="#id5">Input parameters</a></li>
+<li><a class="reference internal" href="#id4">Input parameters</a></li>
 <li><a class="reference internal" href="#output">Output</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#htseqqa-reducer"><cite>HTSeqQA_reducer</cite></a><ul>
-<li><a class="reference internal" href="#id7">Output</a></li>
+<li><a class="reference internal" href="#id6">Output</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#running-the-htseqqa-on-hadoop">Running the <tt class="docutils literal"><span class="pre">HTSeqQA</span></tt> on Hadoop</a></li>
